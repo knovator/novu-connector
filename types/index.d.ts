@@ -1,4 +1,4 @@
-declare module 'novu-connector' {
+declare module '@knovator/novu-connector' {
     export declare function addUser(admin: AdminInfo, user: UserInviteInfo): Promise<string>;
     export declare function login(email?: string | void, password?: string | void): Promise<{
         token: string;
