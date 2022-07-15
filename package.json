@@ -1,15 +1,29 @@
 {
-  "name": "novu-connector",
+  "name": "@knovator/novu-connector",
   "version": "0.1.0",
   "license": "MIT",
-  "author": "chavda-bhavik",
+  "author": "knovator (https://knovator.com/)",
   "main": "dist/index.js",
   "module": "dist/novu-connector.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist",
-    "src"
+    "README.md",
+    "package.json"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:knovator/masters-node.git"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
   "scripts": {
     "analyze": "size-limit --why",
     "build": "dts build",
@@ -46,5 +60,17 @@
       "path": "dist/novu-connector.esm.js",
       "limit": "10 KB"
     }
-  ]
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^7.0.8",
+    "@tsconfig/recommended": "^1.0.1",
+    "dts-cli": "^1.5.2",
+    "husky": "^8.0.1",
+    "size-limit": "^7.0.8",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
 }
