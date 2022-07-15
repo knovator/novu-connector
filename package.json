@@ -13,10 +13,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:knovator/masters-node.git"
+    "url": "git@github.com/knovator/novu-connector.git"
   },
   "keywords": [
-    "nodejs"
+    "nodejs",
+    "axios",
+    "novu-connector"
   ],
   "exports": {
     ".": {
