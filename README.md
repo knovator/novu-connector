@@ -1,103 +1,160 @@
-# DTS User Guide
+<div id="top"></div>
 
-Congrats! You just saved yourself hours of work by bootstrapping this project with DTS. Let’s get you oriented with what’s here and how to use it.
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+<h3 align="center">@knovator/novu-connector</h3>
 
-> This DTS setup is meant for developing libraries (not apps!) that can be published to NPM. If you’re looking to build a Node app, you could use `ts-node-dev`, plain `ts-node`, or simple `tsc`.
+  <p align="center">
+    `@knovator/novu-connector` is package built that register and login the user.
+    <br />
+    <a href="https://github.com/knovator/novu-connector"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/knovator/novu-connector">View Demo</a>
+    ·
+    <a href="https://github.com/knovator/novu-connector/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/knovator/novu-connector/issues">Request Feature</a>
+  </p>
+</div>
 
-> If you’re new to TypeScript, checkout [this handy cheatsheet](https://devhints.io/typescript)
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#usage">Usage</a>
+      <ul>
+        <li><a href="#configuration">Configuration</a></li>
+        <li><a href="#registering-user">Registering User</a></li>
+        <li><a href="#login-user">Login User</a></li>
+      </ul>
+    </li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
-## Commands
 
-DTS scaffolds your new library inside `/src`.
 
-To run DTS, use:
+<!-- ABOUT THE PROJECT -->
+## About The Project
+`@knovator/novu-connector` is package built to add user to the admin organization and get user login token.
 
-```bash
-npm start # or yarn start
-```
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-This builds to `/dist` and runs the project in watch mode so any edits you save inside `src` causes a rebuild to `/dist`.
 
-To do a one-off build, use `npm run build` or `yarn build`.
+### Built With
 
-To run tests, use `npm test` or `yarn test`.
+* [Axios](https://www.npmjs.com/package/axios)
+* [Typescript](https://www.typescriptlang.org/)
 
-## Configuration
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-Code quality is set up for you with `prettier`, `husky`, and `lint-staged`. Adjust the respective fields in `package.json` accordingly.
 
-### Jest
 
-Jest tests are set up to run with `npm test` or `yarn test`.
+<!-- GETTING STARTED -->
+## Getting Started
+To use this package you have to first setup your account on novu or on self hosted novu, and should be having your setup/admin credentials ready.
 
-### Bundle Analysis
+### Installation
 
-[`size-limit`](https://github.com/ai/size-limit) is set up to calculate the real cost of your library with `npm run size` and visualize the bundle with `npm run analyze`.
+1. Install NPM packages
+   ```sh
+   npm install @knovator/novu-connector
+   # or
+   yarn add @knovator/novu-connector
+   ```
 
-#### Setup Files
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-This is the folder structure we set up for you:
+<!-- USAGE EXAMPLES -->
+## Usage
 
-```txt
-/src
-  index.ts        # EDIT THIS
-/test
-  index.test.ts   # EDIT THIS
-.gitignore
-package.json
-README.md         # EDIT THIS
-tsconfig.json
-```
+After successfully creating account and having `username` and `password` credentials we can start using it,
 
-### Rollup
+#### Configuration
+- In app.js/main.js, you have to first configure package to use different baseURL,
+  ```js
+  const { setConfig } = require('@knovator/novu-connector');
 
-DTS uses [Rollup](https://rollupjs.org) as a bundler and generates multiple rollup configs for various module formats and build settings. See [Optimizations](#optimizations) for details.
+  setConfig('http://localhost:3000', false);
+  ```
+- `setConfig` function accepts two parameters,
+  - `baseUrl` - baseUrl to call the API
+  - `log` - boolean to toggle logging in console
 
-### TypeScript
+#### Registering User
+- To new member to current member team, we can use `addUser` function
+  ```js
+  const { addUser } = require('@knovator/novu-connector');
+  await addUser(
+    { email: "admin@gmail.com", password: "admin1234" },
+    { email: "johndoe@gmail.com", password: "johndoe123", role: "member", firstName: "John", lastName: "Doe"  }
+  );
+  ```
+- first parameter indicates **admin** credentials
+- second parameter indicates **new user** credentials, in which role can be `member` or `admin`
 
-`tsconfig.json` is set up to interpret `dom` and `esnext` types, as well as `react` for `jsx`. Adjust according to your needs.
+#### Login User
+- To login the user, we can use `login` function
+  ```js
+  const { login } = require('@knovator/novu-connector');
 
-## Continuous Integration
+  await login("johndoe@gmail.com", "johndoe123");
+  ```
+- Returns `{ token: '...' }` in case of credentials are correct.
 
-### GitHub Actions
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-Two actions are added by default:
+<!-- CONTRIBUTING -->
+## Contributing
 
-- `main` which installs deps w/ cache, lints, tests, and builds on all pushes against a Node and OS matrix
-- `size` which comments cost comparison of your library on every pull request using [`size-limit`](https://github.com/ai/size-limit)
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-## Optimizations
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
 
-Please see the main `dts` [optimizations docs](https://github.com/weiran-zsd/dts-cli#optimizations). In particular, know that you can take advantage of development-only optimizations:
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-```js
-// ./types/index.d.ts
-declare var __DEV__: boolean;
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-// inside your code...
-if (__DEV__) {
-  console.log('foo');
-}
-```
 
-You can also choose to install and use [invariant](https://github.com/weiran-zsd/dts-cli#invariant) and [warning](https://github.com/weiran-zsd/dts-cli#warning) functions.
 
-## Module Formats
+<!-- LICENSE -->
+## License
 
-CJS, ESModules, and UMD module formats are supported.
+Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-The appropriate paths are configured in `package.json` and `dist/index.js` accordingly. Please report if any issues are found.
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-## Named Exports
 
-Per Palmer Group guidelines, [always use named exports.](https://github.com/palmerhq/typescript#exports) Code split inside your React app instead of your React library.
 
-## Including Styles
+<!-- CONTACT -->
+## Contact
 
-There are many ways to ship styles, including with CSS-in-JS. DTS has no opinion on this, configure how you like.
+Knovator Technologies
+- Twitter [@knovator](https://twitter.com/knovator)
+- Web [https://knovator.com/](https://knovator.com/)
 
-For vanilla CSS, you can include it at the root directory and add it to the `files` section in your `package.json`, so that it can be imported separately by your users and run through their bundler's loader.
+Project Link: [https://github.com/knovator/novu-connector](https://github.com/knovator/novu-connector)
 
-## Publishing to NPM
-
-We recommend using [np](https://github.com/sindresorhus/np).
+<p align="right">(<a href="#top">back to top</a>)</p>
